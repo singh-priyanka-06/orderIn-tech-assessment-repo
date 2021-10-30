@@ -1,7 +1,7 @@
 # orderIn-tech-assessment-repo
 OrderIn Technical Assessment Repository
 
-Here I have to develop an application through which I can place an order for a food-item online and in the 
+Here the requirement is - an application using which I can place an order for a food-item online and in the 
 search result I should get the sorted list of restuarants which has the item that i am looking for, in their menu.
 The sorting should be based on the number of varieties matching the searched keyword and the user ratings called as Rank.
 
