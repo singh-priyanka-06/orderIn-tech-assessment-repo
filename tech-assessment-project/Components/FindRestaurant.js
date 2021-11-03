@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { createUseStyles } from "react-jss";
 
 import allResturants from "../data/SampleData.json";
 import Modal from "./Modal";
@@ -18,8 +19,36 @@ const searchStringToTownAndItemName = (input) => {
   };
 };
 
+const useStyles = createUseStyles({
+  searchInput: {
+    border: "none",
+    borderRadius: 6,
+    background: "#55C2BB",
+    color: "#fff",
+    padding: 7,
+    fontWeight: "bold",
+    fontSize: 18,
+    "&:focus, &:active": {
+      border: "none",
+      borderRadius: 6,
+      outline: "none"
+    }
+  },
+  button: {
+    height: 40,
+    width: 180,
+    background: "#ED7422",
+    borderRadius: 6,
+    color: "#fff",
+    border: "none",
+    fontSize: 18,
+    cursor:"pointer"
+  }
+})
+
 // The core Component to Search Restaurant
 export default function FindRestaurant() {
+  const classes = useStyles()
   const [searchInput, setSearchInput] = useState("");
   const [searchData, setSearchData] = useState({
     itemName: "",
@@ -102,11 +131,10 @@ export default function FindRestaurant() {
             return found;
           })
           .filter((item) => item)
-          .sort((a, b)=> (b.itemCount - a.itemCount) + (a.Rank - b.Rank))
+          .sort((a, b)=> (b.itemCount - a.itemCount) + (b.Rank - a.Rank))
       });
   }, [searchData]);
 
-  // Calculating total price on every select and unselect of menu-item.
   const totalPrice = useMemo(()=>{
     let total = 0
     selectedItems.forEach(item=>{
@@ -153,7 +181,7 @@ export default function FindRestaurant() {
               marginBottom: 35,
               paddingLeft: 8
             }}
-            placeholder="Search..."
+            className={classes.searchInput}
           />
           
           <img 
@@ -162,7 +190,7 @@ export default function FindRestaurant() {
               height: 25,
               position:"absolute",
               right: 0,
-              top: 5
+              top: 9
             }} 
             src="/search.png" 
             alt="search" 
@@ -202,16 +230,7 @@ export default function FindRestaurant() {
           }}
         >
           <button 
-            style={{
-              height: 40,
-              width: 150,
-              background: "#58b758",
-              borderRadius: 10,
-              color: "#fff",
-              border: "none",
-              fontSize: 18,
-              fontWeight: "bold"
-            }}
+            className={classes.button}
             onClick={handleSubmit}
           >Order - R{totalPrice}</button>
         </div>
@@ -234,18 +253,10 @@ export default function FindRestaurant() {
           </p>
           
           <button 
-            style={{
-              width: 150, 
-              height: 38, 
-              display: "flex", 
-              alignItems: "center",
-              justifyContent: "center",
-              background: "#fff",
-              marginTop: 20,
-            }} 
+            className={classes.button}
             onClick={toggleSuccessModal}
           >
-            <p style={{fontSize: 18}}>Ok</p>
+            Ok
           </button>
         </div>
       </Modal>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-const MenuItem = ({
+const MenuItems = ({
   menuItem, 
   selected, 
   handleSelectItem, 
@@ -63,21 +63,21 @@ export default function SearchRestaurantCard({
           src={restaurant.LogoPath} 
           alt={restaurant.Name} 
         /> 
-        <p style={{fontSize: 18}}>
+        <h2>
           {restaurant.Name} - {restaurant.Suburb} - rated #{" "}
           {restaurant.Rank} overall 
-        </p>
+        </h2>
       </div>
      
       <div style={{paddingLeft: 20}}>
         {restaurant.matchesCategoriesAndMenuItems?.map((categorie, index)=> {
           return (
             <div key={categorie.Name + index}>
-              <p style={{fontWeight:"bold"}}>{categorie.Name}</p>
+              <h3>{categorie.Name}</h3>
               <div style={{paddingLeft: 15}}>
                 {categorie.MenuItems.map((menuItem) => {
                   const selected = !!selectedItems.find(selectedItem=>selectedItem.Id === menuItem.Id)
-                  return <MenuItem 
+                  return <MenuItems 
                     key={menuItem.Id}
                     menuItem={menuItem} 
                     handleSelectItem={handleSelectItem}
